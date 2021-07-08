@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+body {
+    font-family: "Acme", sans-serif !important;
+    font-weight: bold;
+  }
+  
+  .col-3 img {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .col h1 {
+    font-size: 30px;
+    font-family: sans-serif;
+    margin-top: 10px;
+  }
+  .col-3 button {
+    font-size: 10px;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 80px;
+  }
+  
+  .card img {
+    max-height: 20em;
+    max-width: 20em;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+  }

@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <link rel="stylesheet" href="{% static 'jaguarete/estilo.css' %}" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link
+      href="{% static 'fontawesome_free/css/all.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jaguarete Kaa</title>
+  </head>
+  <body class="bg-warning">
+    <div class="container">
+      <header class="p-3 bg-warning mb-4 border-bottom border-secondary">
+        <div class="container">
+          <div
+            class="
+              d-flex
+              flex-wrap
+              align-items-center
+              justify-content-center justify-content-lg-start
+            "
+          >
+            <a
+              href="/"
+              class="
+                d-flex
+                align-items-center
+                mb-2 mb-lg-0
+                text-white text-decoration-none
+              "
+            >
+              <div id="logo">
+                <a href="{% url 'home' %}" class="mx-2"
+                  ><img
+                    width="200"
+                    height="200"
+                    src="media\imagenes\Logo.png"
+                    alt="Logo-petshop"
+                /></a>
+              </div>
+            </a>
+
+            <ul
+              class="
+                nav
+                col-12 col-lg-auto
+                me-lg-auto
+                mb-2
+                justify-content-center
+                mb-md-0
+              "
+            >
+              <li>
+                <a href="{% url 'home' %}" class="nav-link px-2 text-secondary"
+                  >Inicio</a
+                >
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link px-2 text-white dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Categorias
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="http://127.0.0.1:8000/buscar/?producto_buscado=Perros"
+                      >Perros</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="http://127.0.0.1:8000/buscar/?producto_buscado=Gatos"
+                      >Gatos</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="http://127.0.0.1:8000/buscar/?producto_buscado=Roedores"
+                      >Roedores</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link px-2 text-white"
+                  aria-current="page"
+                  href="{% url 'acerca_de' %}"
+                  >Acerca de</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-2 text-white" href="{% url 'contacto' %}"
+                  >Contacto</a
+                >
+              </li>
+
+              {% for group in user.groups.all %}
+              {% if group.name == 'moderador' %}
+              <li class="nav-item">
+                <a
+                  class="nav-link px-2 text-white"
+                  href="{% url 'agregarproducto' %}"
+                  tabindex="-1"
+                  aria-disabled="true"
+                  >Nuevo Producto</a
+                >
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+
+            {% include "web/buscador.html" %}
+
+            <div>
+              <ul class="navbar-nav me-auto d-flex flex-row">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item me-5">
+                  <a class="nav-link" href="{% url 'logout'%}?next={{ home }}"
+                    >Logout</a
+                  >
+                </li>
+                <li class="nav-item me-3">
+                  <a class="nav-link" href="#"
+                    >Carrito<i class="fas fa-shopping-cart"></i
+                  ></a>
+                </li>
+                {% else %}
+                <li class="nav-item me-5">
+                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item me-5">
+                  <a class="nav-link" href="{% url 'REGISTRO:registro' %}"
+                    >Registro</a
+                  >
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      {% block main %} {% endblock %}
+      <footer class="footer text-white">
+        <p>
+          <i class="fa-solid fa-copyright text-white"></i>2021 - Todos los derechos
+          reservados
+        </p>
+
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"
+        ></script>
+      </footer>
+    </div>
+  </body>
+</html>
